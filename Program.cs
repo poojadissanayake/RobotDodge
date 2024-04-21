@@ -9,19 +9,16 @@ namespace RobotDodge
         public static void Main()
         {
             Window window = new Window("RobotDodge", 600, 600);
-            Player player = new Player(window);
+            RobotDodgee robotDodge = new RobotDodgee(window);
 
             while (!window.CloseRequested)
             {
                 SplashKit.ProcessEvents();
-                player.HandleInput();
-                player.StayOnWindow(window);
+                robotDodge.HandleInput();
+                robotDodge.Draw();
+                robotDodge.Update();
 
-                window.Clear(Color.Beige);
-                player.Draw();
-                window.Refresh(60);
-
-                if (player.Quit)
+                if (robotDodge.Quit)
                 {
                     window.Close();
                     window = null;
@@ -29,8 +26,6 @@ namespace RobotDodge
                 }
 
             }
-
-
 
         }
     }
