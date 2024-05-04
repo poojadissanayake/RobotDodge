@@ -11,7 +11,7 @@ namespace RobotDodge
             Window window = new Window("RobotDodge", 600, 600);
             RobotDodgee robotDodge = new RobotDodgee(window);
 
-            while (!window.CloseRequested)
+            while (!window.CloseRequested || !robotDodge.Quit)
             {
                 SplashKit.ProcessEvents();
                 robotDodge.HandleInput();
@@ -21,7 +21,6 @@ namespace RobotDodge
                 if (robotDodge.Quit)
                 {
                     window.Close();
-                    window = null;
 
                 }
 

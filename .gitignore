@@ -1,3 +1,4 @@
 #ignore /bin and obj
 /bin
 /obj
+Resources/fonts/.DS_Store
