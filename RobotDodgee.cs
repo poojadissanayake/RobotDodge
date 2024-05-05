@@ -115,7 +115,7 @@ public class RobotDodgee
         // Remove bullets that are off the screen or inactive
         _Bullets.RemoveAll(bullet => bullet.IsOffScreen(gameWindow) || !bullet.Active);
 
-        if (_Robots.Count >= 0)
+        if (_Robots.Count < 10 && _Robots.Count >= 0)
         {
             _Robots.Add(RandomRobot());
         }
