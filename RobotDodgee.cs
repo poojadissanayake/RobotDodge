@@ -14,6 +14,7 @@ public class RobotDodgee
     private int lives = 5;
     private bool gameOver = false;
     private Font font;
+    private static Random random = new Random();
     public bool Quit { get { return player.Quit || gameOver; } }
 
     public RobotDodgee(Window gameWindow)
@@ -24,7 +25,7 @@ public class RobotDodgee
         _heart = new Bitmap("heart", "heart.png");
         _Robots = new List<Robot>();
         _Timer = new SplashKitSDK.Timer("GameTimer");
-        font = SplashKit.LoadFont("LoveDays-2v7Oe","LoveDays-2v7Oe.ttf");
+        font = SplashKit.LoadFont("LoveDays-2v7Oe", "LoveDays-2v7Oe.ttf");
         _Timer.Start();
     }
 
@@ -162,7 +163,19 @@ public class RobotDodgee
 
     public Robot RandomRobot()
     {
-        return new Robot(gameWindow, player);
+        // Generates 0, 1, or 2 for robot type
+        int robotType = random.Next(3); 
+        switch (robotType)
+        {
+            case 0:
+                return new Boxy(gameWindow, player);
+            case 1:
+                return new Roundy(gameWindow, player);
+            case 2:
+                return new Virus(gameWindow, player);
+            default:
+                throw new InvalidOperationException("Unknown robot type");
+        }
     }
 
 }

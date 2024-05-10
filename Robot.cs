@@ -1,6 +1,6 @@
 using SplashKitSDK;
 
-public class Robot
+public abstract class Robot
 {
     public double X { get; private set; }
     public double Y { get; private set; }
@@ -81,6 +81,7 @@ public class Robot
     {
         X += Velocity.X;
         Y += Velocity.Y;
+        CollisionCircle = SplashKit.CircleAt(X + Width / 2, Y + Height / 2, 20);
     }
 
     public bool IsOffscreen(Window screen)
@@ -92,7 +93,15 @@ public class Robot
         return false;
     }
 
-    public void Draw()
+    public abstract void Draw();
+
+}
+
+public class Boxy : Robot
+{
+    public Boxy(Window gameWindow, Player player) : base(gameWindow, player) { }
+
+    public override void Draw()
     {
         double leftX = X + 12;
         double rightX = X + 27;
@@ -106,8 +115,42 @@ public class Robot
         SplashKit.FillRectangle(MainColor, leftX, mouthY, 25, 10);
         SplashKit.FillRectangle(MainColor, leftX + 2, mouthY + 2, 21, 6);
 
-        CollisionCircle = SplashKit.CircleAt(X + Width / 2, Y + Height / 2, 20);
+    }
+}
 
+public class Roundy : Robot
+{
+    public Roundy(Window gameWindow, Player player) : base(gameWindow, player) { }
 
+    public override void Draw()
+    {
+        double leftX, midX, rightX;
+        double midY, eyeY, mouthY;
+
+        leftX = X + 17;
+        midX = X + 25;
+        rightX = X + 33;
+
+        midY = Y + 25;
+        eyeY = Y + 20;
+        mouthY = Y + 35;
+
+        SplashKit.FillCircle(Color.Bisque, midX, midY, 25);
+        SplashKit.DrawCircle(Color.RosyBrown, midX, midY, 25);
+        SplashKit.FillCircle(MainColor, leftX, eyeY, 5);
+        SplashKit.FillCircle(MainColor, rightX, eyeY, 5);
+        SplashKit.FillEllipse(Color.RosyBrown, X, eyeY, 50, 30);
+        SplashKit.DrawLine(Color.Brown, X, mouthY, X + 50, Y + 35);
+    }
+}
+
+public class Virus : Robot{
+    private Bitmap virus;
+    public Virus(Window gameWindow, Player player) : base(gameWindow, player) {
+         virus = new Bitmap("virus", "virus2.png");
+         
+    }
+    public override void Draw(){
+        virus.Draw(X+10,Y);
     }
 }
